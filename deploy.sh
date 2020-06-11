@@ -1,9 +1,10 @@
-# exit when any command fails
-set -e
+# If build fails exit now.
+docker-compose up --exit-code-from build build || exit 1
 
-docker-compose up build
+# Current folder name
+PROJECT_NAME=${PWD##*/}
 
-scp target/arm-unknown-linux-gnueabihf/release/rust-pi-blink pi@pi:/home/pi/
+scp target/arm-unknown-linux-gnueabihf/release/$PROJECT_NAME pi@pi:/home/pi/
 
 # -t -t kills the process on ssh down
-ssh -t -t pi@pi /home/pi/rust-pi-blink
+ssh -t -t pi@pi /home/pi/$PROJECT_NAME
