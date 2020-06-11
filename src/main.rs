@@ -17,8 +17,10 @@ fn main() {
         .with_exported(|| {
             my_led.set_direction(Direction::Out).unwrap();
             loop {
+                info!(target: "rust-pi-blink", "Blink Low");
                 my_led.set_value(0).unwrap();
                 sleep(sleep_time);
+                info!(target: "rust-pi-blink", "Blink High");
                 my_led.set_value(1).unwrap();
                 sleep(sleep_time);
             }
